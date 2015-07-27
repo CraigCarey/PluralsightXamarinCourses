@@ -19,23 +19,39 @@ namespace CoursesiOS
 		UIKit.UIButton buttonPrev { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView imageCourse { get; set; }
+
+		[Outlet]
 		UIKit.UILabel labelTitle { get; set; }
+
+		[Outlet]
+		UIKit.UITextView textDescription { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (buttonPrev != null) {
-				buttonPrev.Dispose ();
-				buttonPrev = null;
-			}
-
 			if (buttonNext != null) {
 				buttonNext.Dispose ();
 				buttonNext = null;
 			}
 
+			if (buttonPrev != null) {
+				buttonPrev.Dispose ();
+				buttonPrev = null;
+			}
+
 			if (labelTitle != null) {
 				labelTitle.Dispose ();
 				labelTitle = null;
+			}
+
+			if (imageCourse != null) {
+				imageCourse.Dispose ();
+				imageCourse = null;
+			}
+
+			if (textDescription != null) {
+				textDescription.Dispose ();
+				textDescription = null;
 			}
 		}
 	}
