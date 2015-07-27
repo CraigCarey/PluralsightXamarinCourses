@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using CoursesLibrary;
 
 namespace CoursesAndroid
 {
@@ -17,6 +18,7 @@ namespace CoursesAndroid
         TextView textTitle;
         ImageView imageCourse;
         TextView textDescription;
+        CourseManager courseManager;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -34,21 +36,38 @@ namespace CoursesAndroid
             buttonPrev.Click += buttonPrev_Click;
             buttonNext.Click += buttonNext_Click;
 
+            courseManager = new CourseManager();
+            courseManager.MoveFirst();
+            UpdateUI();
+
         }
 
         void buttonPrev_Click(object sender, EventArgs e)
         {
-            textTitle.Text = "Prev Clicked";
-            textDescription.Text = "The description that appears when Prev is clicked";
-            imageCourse.SetImageResource(Resource.Drawable.ps_top_card_01);
+            courseManager.MovePrev();
+            UpdateUI();
+            //textTitle.Text = "Prev Clicked";
+            //textDescription.Text = "The description that appears when Prev is clicked";
+            //imageCourse.SetImageResource(Resource.Drawable.ps_top_card_01);
         }
 
         void buttonNext_Click(object sender, EventArgs e)
         {
-            textTitle.Text = "Next Clicked";
-            textDescription.Text = "The description that appears when Next is clicked";
-            imageCourse.SetImageResource(Resource.Drawable.ps_top_card_02);
+            courseManager.MoveNext();
+            UpdateUI();
+            //textTitle.Text = "Next Clicked";
+            //textDescription.Text = "The description that appears when Next is clicked";
+            //imageCourse.SetImageResource(Resource.Drawable.ps_top_card_02);
         }
+
+        private void UpdateUI()
+        {
+            textTitle.Text = courseManager.Current.Title;
+            textDescription.Text = courseManager.Current.Description;
+            imageCourse.SetImageResource(Resource.Drawable.ps_top_card_01);
+        }
+
+
     }
 }
 
