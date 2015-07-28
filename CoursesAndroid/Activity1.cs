@@ -39,35 +39,28 @@ namespace CoursesAndroid
             courseManager = new CourseManager();
             courseManager.MoveFirst();
             UpdateUI();
-
         }
 
         void buttonPrev_Click(object sender, EventArgs e)
         {
             courseManager.MovePrev();
             UpdateUI();
-            //textTitle.Text = "Prev Clicked";
-            //textDescription.Text = "The description that appears when Prev is clicked";
-            //imageCourse.SetImageResource(Resource.Drawable.ps_top_card_01);
         }
 
         void buttonNext_Click(object sender, EventArgs e)
         {
             courseManager.MoveNext();
             UpdateUI();
-            //textTitle.Text = "Next Clicked";
-            //textDescription.Text = "The description that appears when Next is clicked";
-            //imageCourse.SetImageResource(Resource.Drawable.ps_top_card_02);
         }
 
         private void UpdateUI()
         {
             textTitle.Text = courseManager.Current.Title;
             textDescription.Text = courseManager.Current.Description;
-            imageCourse.SetImageResource(Resource.Drawable.ps_top_card_01);
+            imageCourse.SetImageResource(ResourceHelper.TranslateDrawableWithReflection(courseManager.Current.Image));
+            buttonPrev.Enabled = courseManager.CanMovePrev;
+            buttonNext.Enabled = courseManager.CanMoveNext;
         }
-
-
     }
 }
 

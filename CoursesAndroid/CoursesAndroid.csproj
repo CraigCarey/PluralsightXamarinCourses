@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity1.cs" />
+    <Compile Include="ResourceHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +70,8 @@
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\drawable\ps_top_card_01.png" />
     <AndroidResource Include="Resources\drawable\ps_top_card_02.png" />
+    <AndroidResource Include="Resources\drawable\ps_top_card_03.png" />
+    <AndroidResource Include="Resources\drawable\ps_top_card_04.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoursesLibrary\CoursesLibrary.csproj">

@@ -53,6 +53,12 @@ namespace CoursesAndroid
 			// aapt resource value: 0x7f020002
 			public const int ps_top_card_02 = 2130837506;
 			
+			// aapt resource value: 0x7f020003
+			public const int ps_top_card_03 = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int ps_top_card_04 = 2130837508;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

@@ -10,10 +10,12 @@ namespace CoursesLibrary
     {
         private readonly Course[] courses;
         int currentIndex = 0;
+        private readonly int lastIndex;
 
         public CourseManager()
         {
             courses = InitCourses();
+            lastIndex = courses.Length - 1;
         }
 
         private Course[] InitCourses()
@@ -69,7 +71,7 @@ namespace CoursesLibrary
 
         public void MoveNext()
         {
-            if (currentIndex < courses.Length - 1)
+            if (currentIndex < lastIndex)
             {
                 ++currentIndex;
             }
@@ -79,5 +81,8 @@ namespace CoursesLibrary
         {
             get { return courses[currentIndex]; }
         }
+
+        public Boolean CanMovePrev { get { return currentIndex > 0; } }
+        public Boolean CanMoveNext { get { return currentIndex < lastIndex; } }
     }
 }
