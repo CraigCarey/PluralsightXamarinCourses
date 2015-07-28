@@ -64,12 +64,12 @@ namespace CoursesLibrary
             if (currentIndex > 0)
             {
                 --currentIndex;
-            }            
+            }
         }
 
         public void MoveNext()
         {
-            if (currentIndex > courses.Length - 1)
+            if (currentIndex < courses.Length - 1)
             {
                 ++currentIndex;
             }

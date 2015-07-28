@@ -3,11 +3,14 @@ using System;
 
 using Foundation;
 using UIKit;
+using CoursesLibrary;
 
 namespace CoursesiOS
 {
 	public partial class CourseViewController : UIViewController
 	{
+        CourseManager courseManager;
+
 		public CourseViewController () : base ("CourseViewController", null)
 		{
 		}
@@ -28,20 +31,30 @@ namespace CoursesiOS
 
             buttonPrev.TouchUpInside += buttonPrev_TouchUpInside;
             buttonNext.TouchUpInside += buttonNext_TouchUpInside;
+
+            courseManager = new CourseManager();
+            courseManager.MoveFirst();
+            UpdateUI();
 		}
 
         private void buttonPrev_TouchUpInside(object sender, EventArgs e)
         {
-            labelTitle.Text = "Prev clicked";
-            textDescription.Text = "This is the description when prev is clicked";
+            courseManager.MovePrev();
+            UpdateUI();
             imageCourse.Image = UIImage.FromBundle("ps_top_card_01");
         }
 
         private void buttonNext_TouchUpInside(object sender, EventArgs e)
         {
-            labelTitle.Text = "Next clicked";
-            textDescription.Text = "This is the description when next is clicked";
+            courseManager.MoveNext();
+            UpdateUI();
             imageCourse.Image = UIImage.FromBundle("ps_top_card_02");
+        }
+
+        private void UpdateUI()
+        {
+            labelTitle.Text = courseManager.Current.Title;
+            textDescription.Text = courseManager.Current.Description;
         }
 
     }
