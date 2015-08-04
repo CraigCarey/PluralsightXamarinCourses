@@ -10,7 +10,7 @@ using CoursesLibrary;
 
 namespace CoursesAndroid
 {
-    [Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
+    //[Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
     public class Activity1 : Activity
     {
         Button buttonPrev;
