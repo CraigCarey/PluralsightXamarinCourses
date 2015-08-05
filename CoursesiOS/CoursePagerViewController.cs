@@ -41,68 +41,72 @@ namespace CoursesiOS
             courseManager = new CourseManager();
             courseManager.MoveFirst();
 
+            CoursePagerViewControllerDataSource dataSource = new CoursePagerViewControllerDataSource(courseManager);
+            pageViewController.DataSource = dataSource;
+
             // Create an instance of the CourseViewController for the current course of the CourseManager
-            CourseViewController firstCourseViewController = CreateCourseViewController();
+            CourseViewController firstCourseViewController = dataSource.GetFirstViewController();
 
             pageViewController.SetViewControllers(new UIViewController[] { firstCourseViewController }, UIPageViewControllerNavigationDirection.Forward, false, null);
 
             // assign delegate methods
-            pageViewController.GetNextViewController = GetNextViewController;
-            pageViewController.GetPreviousViewController = GetPreviousViewController;
+            //pageViewController.GetNextViewController = GetNextViewController;
+            //pageViewController.GetPreviousViewController = GetPreviousViewController;
         }
 
-        CourseViewController CreateCourseViewController()
-        {
-            CourseViewController courseViewController = new CourseViewController();
-            courseViewController.Course = courseManager.Current;
-            courseViewController.CoursePosition = courseManager.CurrentPosition;
-            return courseViewController;
-        }
+        //CourseViewController CreateCourseViewController()
+        //{
+        //    CourseViewController courseViewController = new CourseViewController();
+        //    courseViewController.Course = courseManager.Current;
+        //    courseViewController.CoursePosition = courseManager.CurrentPosition;
 
-        // delegate
-        // pageViewController is the ViewController that is firing the delegate
-        // referenceViewController is the currently displayed ViewController
-        public UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
-        {
-            CourseViewController returnCourseViewController = null;
+        //    return courseViewController;
+        //}
 
-            CourseViewController referenceCourseViewController = referenceViewController as CourseViewController;
+        //// delegate
+        //// pageViewController is the ViewController that is firing the delegate
+        //// referenceViewController is the currently displayed ViewController
+        //public UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
+        //{
+        //    CourseViewController returnCourseViewController = null;
 
-            if (referenceCourseViewController != null)
-            {
-                courseManager.MoveTo(referenceCourseViewController.CoursePosition);
-                if(courseManager.CanMoveNext)
-                {
-                    courseManager.MoveNext();
+        //    CourseViewController referenceCourseViewController = referenceViewController as CourseViewController;
 
-                    // create a CourseViewController at wahatever course is at that position
-                    returnCourseViewController = CreateCourseViewController();
-                }
-            }
+        //    if (referenceCourseViewController != null)
+        //    {
+        //        courseManager.MoveTo(referenceCourseViewController.CoursePosition);
+        //        if(courseManager.CanMoveNext)
+        //        {
+        //            courseManager.MoveNext();
 
-            return returnCourseViewController;
-        }
+        //            // create a CourseViewController at wahatever course is at that position
+        //            returnCourseViewController = CreateCourseViewController();
+        //        }
+        //    }
 
-        public UIViewController GetPreviousViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
-        {
-            CourseViewController returnCourseViewController = null;
+        //    return returnCourseViewController;
+        //}
 
-            CourseViewController referenceCourseViewController = referenceViewController as CourseViewController;
+        //public UIViewController GetPreviousViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
+        //{
+        //    CourseViewController returnCourseViewController = null;
 
-            if (referenceCourseViewController != null)
-            {
-                courseManager.MoveTo(referenceCourseViewController.CoursePosition);
-                if (courseManager.CanMovePrev)
-                {
-                    courseManager.MovePrev();
+        //    CourseViewController referenceCourseViewController = referenceViewController as CourseViewController;
 
-                    // create a CourseViewController at wahatever course is at that position
-                    returnCourseViewController = CreateCourseViewController();
-                }
-            }
+        //    if (referenceCourseViewController != null)
+        //    {
+        //        courseManager.MoveTo(referenceCourseViewController.CoursePosition);
+        //        if (courseManager.CanMovePrev)
+        //        {
+        //            courseManager.MovePrev();
 
-            return returnCourseViewController;
-        }
+        //            // create a CourseViewController at wahatever course is at that position
+        //            returnCourseViewController = CreateCourseViewController();
+        //        }
+        //    }
+
+        //    return returnCourseViewController;
+        //}
 
     }
 }
