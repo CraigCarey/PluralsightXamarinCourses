@@ -102,6 +102,11 @@ namespace CoursesLibrary
             get { return courses[currentIndex]; }
         }
 
+        public int CurrentPosition
+        {
+            get { return currentIndex; }
+        }
+
         public Boolean CanMovePrev { get { return currentIndex > 0; } }
         public Boolean CanMoveNext { get { return currentIndex < lastIndex; } }
     }
