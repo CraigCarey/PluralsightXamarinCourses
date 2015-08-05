@@ -15,10 +15,13 @@ using Android.Support.V4.View;
 
 namespace CoursesAndroid
 {
-    // This is the Activity that is loaded on app launch
-    [Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
+    //[Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "CourseActivity)")]
     public class CourseActivity : FragmentActivity
     {
+        public const String DISPLAY_CATEGORY_TITLE_EXTRA = "DisplayCategoryTitleExtra";
+        private const String DEFAULT_CATEGORY_TITLE = "Android";
+
         // Our custom data class
         CourseManager courseManager;
 
@@ -35,8 +38,22 @@ namespace CoursesAndroid
             // load the main layout
             SetContentView(Resource.Layout.CourseActivity);
 
+            String displayCategoryTitle = DEFAULT_CATEGORY_TITLE;
+
+            Intent startupIntent = this.Intent;
+
+            if (startupIntent != null)
+            {
+                String displayCategoryTitleExtra = startupIntent.GetStringExtra(DISPLAY_CATEGORY_TITLE_EXTRA);
+
+                if (displayCategoryTitleExtra != null)
+                {
+                    displayCategoryTitle = displayCategoryTitleExtra;
+                }
+            }
+
             // create courseManager and move to start of courseList
-            courseManager = new CourseManager();
+            courseManager = new CourseManager(displayCategoryTitle);
             courseManager.MoveFirst();
 
             // coursePagerAdapter is used to link together the fragments and the data
