@@ -15,8 +15,11 @@ namespace CoursesiOS
         UIPageViewController pageViewController;
         CourseManager courseManager;
 
-        public CoursePagerViewController()
+        String categoryTitle;
+
+        public CoursePagerViewController(String categoryTitle)
         {
+            this.categoryTitle = categoryTitle;
         }
 
         public override void DidReceiveMemoryWarning()
@@ -38,7 +41,7 @@ namespace CoursesiOS
             // place the pageViewController inside the UIViewController
             View.AddSubview(pageViewController.View);
 
-            courseManager = new CourseManager();
+            courseManager = new CourseManager(categoryTitle);
             courseManager.MoveFirst();
 
             CoursePagerViewControllerDataSource dataSource = new CoursePagerViewControllerDataSource(courseManager);
