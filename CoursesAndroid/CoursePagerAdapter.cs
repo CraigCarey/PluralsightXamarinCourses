@@ -37,5 +37,20 @@ namespace CoursesAndroid
         {
             get { return courseManager.Length; }
         }
+
+        public CourseManager CourseManager
+        {
+            set
+            {
+                courseManager = value;
+                NotifyDataSetChanged();
+            }
+        }
+
+        public override int GetItemPosition(Java.Lang.Object objectValue)
+        {
+            // forces fragment to be rebuilt each time
+            return PositionNone;
+        }
     }
 }

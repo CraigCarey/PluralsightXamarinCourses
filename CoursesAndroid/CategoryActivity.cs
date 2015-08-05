@@ -14,7 +14,7 @@ using CoursesLibrary;
 namespace CoursesAndroid
 {
     // This is the Activity that is loaded on app launch
-    [Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
+    //[Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
     public class CategoryActivity : ListActivity
     {
         CourseCategoryManager coursecategoryManager;

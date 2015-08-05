@@ -12,15 +12,18 @@ using Android.Widget;
 using Android.Support.V4.App;
 using CoursesLibrary;
 using Android.Support.V4.View;
+using Android.Support.V4.Widget;
 
 namespace CoursesAndroid
 {
-    //[Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
-    [Activity(Label = "CourseActivity)")]
+    [Activity(Label = "Courses", MainLauncher = true, Icon = "@drawable/icon")]
+    //[Activity(Label = "CourseActivity)")]
     public class CourseActivity : FragmentActivity
     {
         public const String DISPLAY_CATEGORY_TITLE_EXTRA = "DisplayCategoryTitleExtra";
         private const String DEFAULT_CATEGORY_TITLE = "Android";
+
+        CourseCategoryManager courseCategoryManager;
 
         // Our custom data class
         CourseManager courseManager;
@@ -31,6 +34,9 @@ namespace CoursesAndroid
         // Attaches the layout fragments to the fragments
         ViewPager viewPager;
 
+        DrawerLayout drawerLayout;
+        ListView categoryDrawerListView;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -38,19 +44,24 @@ namespace CoursesAndroid
             // load the main layout
             SetContentView(Resource.Layout.CourseActivity);
 
-            String displayCategoryTitle = DEFAULT_CATEGORY_TITLE;
+            courseCategoryManager = new CourseCategoryManager();
+            courseCategoryManager.MoveFirst();
+            String displayCategoryTitle = courseCategoryManager.Current.Title;
 
-            Intent startupIntent = this.Intent;
 
-            if (startupIntent != null)
-            {
-                String displayCategoryTitleExtra = startupIntent.GetStringExtra(DISPLAY_CATEGORY_TITLE_EXTRA);
+            //String displayCategoryTitle = DEFAULT_CATEGORY_TITLE;
 
-                if (displayCategoryTitleExtra != null)
-                {
-                    displayCategoryTitle = displayCategoryTitleExtra;
-                }
-            }
+            //Intent startupIntent = this.Intent;
+
+            //if (startupIntent != null)
+            //{
+            //    String displayCategoryTitleExtra = startupIntent.GetStringExtra(DISPLAY_CATEGORY_TITLE_EXTRA);
+
+            //    if (displayCategoryTitleExtra != null)
+            //    {
+            //        displayCategoryTitle = displayCategoryTitleExtra;
+            //    }
+            //}
 
             // create courseManager and move to start of courseList
             courseManager = new CourseManager(displayCategoryTitle);
@@ -62,9 +73,29 @@ namespace CoursesAndroid
 
             // Sets the layout for each fragment
             viewPager = FindViewById<ViewPager>(Resource.Id.coursePager);
-
-
+            
             viewPager.Adapter = coursePagerAdapter;
+
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawerLayout);
+
+            categoryDrawerListView = FindViewById<ListView>(Resource.Id.categoryDrawerListView);
+
+            categoryDrawerListView.Adapter = new CourseCategoryManagerAdapter(this, Resource.Layout.CourseCategoryItem, courseCategoryManager);
+
+            categoryDrawerListView.SetItemChecked(0, true);
+
+            categoryDrawerListView.ItemClick += categoryDrawerListView_ItemClick;
+        }
+
+        private void categoryDrawerListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            drawerLayout.CloseDrawer(categoryDrawerListView);
+
+            courseCategoryManager.MoveTo(e.Position);
+            courseManager = new CourseManager(courseCategoryManager.Current.Title);
+            coursePagerAdapter.CourseManager = courseManager;
+
+            viewPager.CurrentItem = 0;
         }
     }
 }
